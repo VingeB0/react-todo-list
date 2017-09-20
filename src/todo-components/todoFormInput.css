@@ -1,0 +1,23 @@
+.todoForm__input {
+	width: 74%;
+	border: 1px solid #e2e2e2;
+	background-color: #fff;
+	padding: 6px 10px;
+	outline: none;
+}
+
+.todoForm__btn {
+	border: 1px solid #e2e2e2;
+	border-left: none;
+	background-color: #fff;
+	width: 26%;
+	padding: 6px 0;
+	transition: 0.3s linear;
+	cursor: pointer;
+	outline: none;
+}
+
+.todoForm__btn:hover {
+	background-color: #4d5c66;
+	color: #fff;
+}
