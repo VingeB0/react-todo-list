@@ -67,10 +67,19 @@ class List extends React.Component {
 		return count;
 	};
 
+	search() {
+		var filteredArr = [];
+		this.state.myArray.forEach(function(arrItem){
+			if(arrItem.text.toLowerCase().indexOf(filteredArr)!=-1)
+				filteredArr.push(arrItem);
+		});
+		console.log(filteredArr);
+	}
+
 	render() {
 		let all = this.state.myArray.length;
 		let doned = this.halfAll();
-		console.log(doned);
+		this.search();
 		return (
 			<div>
 				<ul>
