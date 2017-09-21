@@ -11,4 +11,9 @@ li {
 
 li:hover {
 	background-color: #e2e2e2;
+	transition: 0.3s linear;
+}
+
+.activeListItem {
+	background-color: red;
 }
