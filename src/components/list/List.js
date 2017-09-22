@@ -23,7 +23,9 @@ class List extends React.Component {
 					text: 'first item424',
 					done: false
 				}
-			]
+			],
+			inputValue: 'write what to search',
+			filteredData: undefined
 		};
 	}
 
@@ -59,27 +61,32 @@ class List extends React.Component {
 
 	halfAll() {
 		var count = 0;
-		for(var i = 0, l = this.state.myArray.length; i < l; i++) {
-			if(this.state.myArray[i].done){
+		for (var i = 0, l = this.state.myArray.length; i < l; i++) {
+			if (this.state.myArray[i].done) {
 				count++
 			}
 		}
 		return count;
 	};
 
-	search() {
-		var filteredArr = [];
-		this.state.myArray.forEach(function(arrItem){
-			if(arrItem.text.toLowerCase().indexOf(filteredArr)!=-1)
-				filteredArr.push(arrItem);
+	updateInputValue = (evt) => {
+		var mmyArr = [];
+		this.setState({
+			inputValue: evt.target.value,
 		});
-		console.log(filteredArr);
-	}
+		for (var i = 0, l = this.state.myArray.length; i < l; i++) {
+			if (this.state.myArray[i].text === evt.target.value) {
+				mmyArr.push(evt.target.value);
+			}
+		}
+		console.log(mmyArr);
+		return mmyArr;
+	};
 
 	render() {
+		this.updateInputValue;
 		let all = this.state.myArray.length;
 		let doned = this.halfAll();
-		this.search();
 		return (
 			<div>
 				<ul>
@@ -93,7 +100,11 @@ class List extends React.Component {
 				{/*<div><Search/></div>*/}
 				<div className="wrap-search">
 					<span>Search</span>
-					<input type="text"/>
+					<input type="text" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
+					<span>Result search:</span>
+					<ul>
+						<li>123</li>
+					</ul>
 				</div>
 			</div>
 		);
