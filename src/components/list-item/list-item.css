@@ -6,14 +6,84 @@ ul {
 li {
 	list-style: none;
 	padding: 10px;
-	cursor: pointer;
 }
 
-li:hover {
-	background-color: #e2e2e2;
+.list__item {
+	position: relative;
+	width: 100%;
+	padding: 10px 36px;
+	margin-bottom: 6px;
+	outline: none;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+	border: none;
+	font-size: 18px;
+	font-family: Tahoma, Arial, sans-serif;
+	font-weight: 700;
 	transition: 0.3s linear;
 }
 
-.activeListItem {
-	background-color: red;
+.list__item span {
+	white-space: pre-line;
+	word-break: break-all;
+}
+
+.list__item--active {
+	background-color: #04badc;
+	text-decoration:line-through;
+	color: #fff;
+}
+
+.list__input {
+	/*display: none;*/
+}
+
+.list__label:before {
+	content: '';
+	position: absolute;
+	left: 7px;
+	top: 10px;
+	display: inline-block;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background: transparent;
+	border: 2px solid #000;
+	border-radius: 4px;
+	transition: 0.3s linear;
+}
+
+input[type=checkbox]:checked + label:before {
+	border: 2px solid #fff;
+}
+
+input[type=checkbox]:checked + label:after {
+	content: '\2714';
+	position: absolute;
+	left: 11px;
+	top: 10px;
+	cursor: pointer;
+}
+
+input[type=checkbox]:checked ~ button {
+	color: #fff;
+	cursor: pointer;
+}
+
+.list__btn {
+	position: absolute;
+	top: -2px;
+	right: 4px;
+	font-weight: 900;
+	font-size: 33px;
+	background: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	line-height: 33px;
+	height: 43px;
+	transition: 0.2s linear;
+}
+
+.list__btn:hover {
+	transform: scale(1.3, 1.3);
 }

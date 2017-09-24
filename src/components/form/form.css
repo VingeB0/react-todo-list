@@ -1,23 +1,34 @@
-.todoForm__input {
-	width: 74%;
-	border: 1px solid #e2e2e2;
-	background-color: #fff;
-	padding: 6px 10px;
-	outline: none;
+.form {
+	margin-bottom: 10px;
 }
 
-.todoForm__btn {
-	border: 1px solid #e2e2e2;
-	border-left: none;
-	background-color: #fff;
+.form__input {
+	width: 74%;
+	padding: 10px;
+	outline: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+	border: none;
+	font-size: 18px;
+	font-family: Tahoma, Arial, sans-serif;
+	font-weight: 700;
+}
+
+.form__btn {
 	width: 26%;
-	padding: 6px 0;
+	padding: 10px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+	font-size: 18px;
+	font-family: Tahoma, Arial, sans-serif;
+	font-weight: 700;
+	background: #DDD;
+	outline: none;
+	border: none;
 	transition: 0.3s linear;
 	cursor: pointer;
-	outline: none;
+	color: #12bac3;
 }
 
-.todoForm__btn:hover {
-	background-color: #4d5c66;
+.form__btn:hover {
+	background-color: #04badc;
 	color: #fff;
 }

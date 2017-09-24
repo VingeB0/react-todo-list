@@ -12,19 +12,27 @@ class List extends React.Component {
 		this.state = {
 			myArray: [
 				{
-					text: 'first item',
+					text: 'Go to a pet store',
 					done: false
 				},
 				{
-					text: 'first i124tem',
+					text: 'Buy a dog',
 					done: false
 				},
 				{
-					text: 'first item424',
+					text: 'Feed the dog',
+					done: false
+				},
+				{
+					text: 'Walk the dog',
+					done: false
+				},
+				{
+					text: 'Pet the dog',
 					done: false
 				}
 			],
-			inputValue: 'write what to search',
+			inputValue: '',
 			filteredData: undefined
 		};
 	}
@@ -70,40 +78,36 @@ class List extends React.Component {
 	};
 
 	updateInputValue = (evt) => {
-		var mmyArr = [];
 		this.setState({
-			inputValue: evt.target.value,
+			inputValue: evt.target.value.substr(0, 44)
 		});
-		for (var i = 0, l = this.state.myArray.length; i < l; i++) {
-			if (this.state.myArray[i].text === evt.target.value) {
-				mmyArr.push(evt.target.value);
-			}
-		}
-		console.log(mmyArr);
-		return mmyArr;
+		console.log(this.state.inputValue);
 	};
 
 	render() {
-		this.updateInputValue;
+		let filteredItems = this.state.myArray.filter(
+			(arrItem) => {
+				return arrItem.text.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1;
+			}
+		);
+		console.log(filteredItems);
 		let all = this.state.myArray.length;
 		let doned = this.halfAll();
 		return (
 			<div>
-				<ul>
-					{this.state.myArray.map((item, index) =>
-						<Item baz={this.toggleDoneStatus.bind(this)} bar={this.removeItemList.bind(this)} index={index}
-							  text={item} key={index}/>
-					)}
-				</ul>
-				<Form foo={this.addItemList.bind(this)}/>
-				<div><Counter allItems={all} allHalfItems={doned}/></div>
-				{/*<div><Search/></div>*/}
-				<div className="wrap-search">
-					<span>Search</span>
-					<input type="text" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
-					<span>Result search:</span>
+				<h1 className="title">Simple <span className="title__sub">React todo list</span></h1>
+				<div className="search">
+					<input placeholder="Search..." type="text" value={this.state.inputValue} onChange={this.updateInputValue}/>
+				</div>
+				<Counter allItems={all} allHalfItems={doned}/>
+				<div className="list">
+					<Form foo={this.addItemList.bind(this)}/>
 					<ul>
-						<li>123</li>
+						{filteredItems.map((item, index) =>
+							<Item baz={this.toggleDoneStatus.bind(this)} bar={this.removeItemList.bind(this)}
+								  index={index}
+								  text={item} key={index}/>
+						)}
 					</ul>
 				</div>
 			</div>

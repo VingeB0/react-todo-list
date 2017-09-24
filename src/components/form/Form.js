@@ -6,7 +6,7 @@ class Form extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inputValue: 'write what to do'
+			inputValue: ''
 		};
 	}
 
@@ -18,10 +18,10 @@ class Form extends React.Component {
 
 	render() {
 		return (
-			<div className="todoForm">
-				<input className="todoForm__input" type="text" name="valueItem" placeholder="write todo item"
+			<div className="form">
+				<input className="form__input" type="text" name="valueItem" placeholder="Add something to the list!"
 					   value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
-				<button className="todoForm__btn" onClick={() => this.props.foo(this.state.inputValue)}>Add</button>
+				<button className="form__btn" onClick={() => this.props.foo(this.state.inputValue)}>Add item</button>
 			</div>
 		);
 	}

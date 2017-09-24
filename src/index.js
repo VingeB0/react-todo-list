@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import List from './components/list/List.js';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('wrap-todo'));
+class App extends Component {
+	render() {
+		return (
+			<div>
+				<List/>
+			</div>
+		);
+	}
+}
+
+ReactDOM.render(<App />, document.getElementById('container'));
 registerServiceWorker();
