@@ -34,7 +34,7 @@ li {
 }
 
 .list__input {
-	/*display: none;*/
+	display: none;
 }
 
 .list__label:before {

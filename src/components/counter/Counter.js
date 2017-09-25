@@ -6,7 +6,7 @@ class Counter extends React.Component {
 	render() {
 		return (
 			<div className="counter">
-				Done: <span>{this.props.allHalfItems}</span> / <span>{this.props.allItems}</span>
+				Done: <span>{this.props.getCountAllDoneItems}</span> / <span>{this.props.gelCountAllItems}</span>
 			</div>
 		);
 	}

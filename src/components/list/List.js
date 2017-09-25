@@ -12,22 +12,27 @@ class List extends React.Component {
 		this.state = {
 			myArray: [
 				{
+					id: 1,
 					text: 'Go to a pet store',
 					done: false
 				},
 				{
+					id: 2,
 					text: 'Buy a dog',
 					done: false
 				},
 				{
+					id: 3,
 					text: 'Feed the dog',
 					done: false
 				},
 				{
+					id: 4,
 					text: 'Walk the dog',
 					done: false
 				},
 				{
+					id: 5,
 					text: 'Pet the dog',
 					done: false
 				}
@@ -57,31 +62,35 @@ class List extends React.Component {
 		})
 	};
 
-	addItemList = (text) => {
+	addItemList = (text, maxIdItemMyArray) => {
 		this.setState((prevState) => {
 			let newArray = prevState.myArray.slice();
-			newArray.push({text, done: false});
+			maxIdItemMyArray++;
+			newArray.push({id: maxIdItemMyArray, text, done: false});
 			return {
 				myArray: newArray
 			};
 		});
 	};
 
-	halfAll() {
-		var count = 0;
-		for (var i = 0, l = this.state.myArray.length; i < l; i++) {
+	gelCountAllItems() {
+		return this.state.myArray.length;
+	}
+
+	getCountAllDoneItems() {
+		let count = 0;
+		for (let i = 0, l = this.state.myArray.length; i < l; i++) {
 			if (this.state.myArray[i].done) {
 				count++
 			}
 		}
 		return count;
-	};
+	}
 
 	updateInputValue = (evt) => {
 		this.setState({
 			inputValue: evt.target.value.substr(0, 44)
 		});
-		console.log(this.state.inputValue);
 	};
 
 	render() {
@@ -90,23 +99,21 @@ class List extends React.Component {
 				return arrItem.text.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1;
 			}
 		);
-		console.log(filteredItems);
-		let all = this.state.myArray.length;
-		let doned = this.halfAll();
+		let maxIdItemMyArray = Math.max.apply(Math,this.state.myArray.map(function(o){return o.id;}));
 		return (
 			<div>
 				<h1 className="title">Simple <span className="title__sub">React todo list</span></h1>
 				<div className="search">
-					<input placeholder="Search..." type="text" value={this.state.inputValue} onChange={this.updateInputValue}/>
+					<input placeholder="Search..." type="text" value={this.state.inputValue}
+						   onChange={this.updateInputValue}/>
 				</div>
-				<Counter allItems={all} allHalfItems={doned}/>
+				<Counter gelCountAllItems={this.gelCountAllItems()} getCountAllDoneItems={this.getCountAllDoneItems()}/>
 				<div className="list">
-					<Form foo={this.addItemList.bind(this)}/>
+					<Form maxIdItemMyArray={maxIdItemMyArray} addItemList={this.addItemList}/>
 					<ul>
 						{filteredItems.map((item, index) =>
-							<Item baz={this.toggleDoneStatus.bind(this)} bar={this.removeItemList.bind(this)}
-								  index={index}
-								  text={item} key={index}/>
+							<Item toggleDoneStatus={this.toggleDoneStatus} removeItemList={this.removeItemList}
+								  index={index} text={item} key={this.state.myArray[index].id}/>
 						)}
 					</ul>
 				</div>
