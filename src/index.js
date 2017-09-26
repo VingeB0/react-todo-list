@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import List from './components/list/List.js';
+import List from './components/list/List.jsx';
 import registerServiceWorker from './registerServiceWorker';
 
 class App extends Component {

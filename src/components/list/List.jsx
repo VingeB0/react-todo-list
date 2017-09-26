@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './list.css';
-import Title from '../title/Title.js';
-import Item from '../list-item/Item.js';
-import Form from '../form/Form.js';
-import Counter from '../counter/Counter.js';
-import Search from '../search/Search.js';
+import Title from '../title/Title.jsx';
+import Item from '../list-item/Item.jsx';
+import Form from '../form/Form';
+import Counter from '../counter/Counter.jsx';
+import Search from '../search/Search.jsx';
 
 class List extends React.Component {
 
@@ -13,22 +13,22 @@ class List extends React.Component {
 		this.state = {
 			myArray: [
 				{
-					id: 1,
+					id: 11,
 					text: 'Go to a pet store',
 					done: false
 				},
 				{
-					id: 2,
+					id: 4,
 					text: 'Buy a dog',
 					done: false
 				},
 				{
-					id: 3,
+					id: 7,
 					text: 'Feed the dog',
 					done: false
 				},
 				{
-					id: 4,
+					id: 9,
 					text: 'Walk the dog',
 					done: false
 				},
@@ -44,20 +44,20 @@ class List extends React.Component {
 		};
 	}
 
-	toggleDoneStatus = (index) => {
+	toggleDoneStatus = (key) => {
 		this.setState((prevState) => {
 			let newArray = prevState.myArray.slice();
-			newArray[index].done = !newArray[index].done;
+			newArray[key].done = !newArray[key].done;
 			return {
 				myArray: newArray
 			};
 		})
 	};
 
-	removeItemList = (index) => {
+	removeItemList = (key) => {
 		this.setState((prevState) => {
 			let newArray = prevState.myArray.slice();
-			newArray.splice(index, 1);
+			newArray.splice(key, 1);
 			return {
 				myArray: newArray
 			};
@@ -96,8 +96,6 @@ class List extends React.Component {
 	};
 
 	filterArrItemsInputSearch = () => {
-		console.log(this.state.inputValue);
-		console.log(this.state.myArray);
 		return this.state.myArray.filter(
 			(arrItem) => {
 				return arrItem.text.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1;
@@ -119,7 +117,7 @@ class List extends React.Component {
 	};
 
 	render() {
-		console.log(this.filterArrItemsInputSearch);
+		// console.log(this.state.myArray);
 		return (
 			<div>
 				<Title/>

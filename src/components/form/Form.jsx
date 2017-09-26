@@ -6,7 +6,7 @@ class Form extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			inputValue: ''
+			inputValue: '',
 		};
 	}
 
@@ -15,6 +15,12 @@ class Form extends React.Component {
 			inputValue: evt.target.value
 		});
 	}
+
+	// clearInput(evt) {
+	// 	this.setState({
+	// 		inputValue: ''
+	// 	})
+	// }
 
 	render() {
 		return (
