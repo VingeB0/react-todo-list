@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './list.css';
+import Title from '../title/Title.js';
 import Item from '../list-item/Item.js';
 import Form from '../form/Form.js';
 import Counter from '../counter/Counter.js';
@@ -38,7 +39,8 @@ class List extends React.Component {
 				}
 			],
 			inputValue: '',
-			filteredData: undefined
+			filteredData: undefined,
+			noItemsList: 'Not found'
 		};
 	}
 
@@ -87,6 +89,29 @@ class List extends React.Component {
 		return count;
 	}
 
+	getIdAddNewItem = () => {
+		return Math.max.apply(Math, this.state.myArray.map(function (myArrayItem) {
+			return myArrayItem.id;
+		}));
+	};
+
+	filterArrItemsInputSearch = () => {
+		console.log(this.state.inputValue);
+		console.log(this.state.myArray);
+		return this.state.myArray.filter(
+			(arrItem) => {
+				return arrItem.text.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1;
+			}
+		);
+	};
+
+	listItems = () => {
+		return this.filterArrItemsInputSearch().map((item, index) =>
+			<Item toggleDoneStatus={this.toggleDoneStatus} removeItemList={this.removeItemList}
+				  index={index} text={item} key={this.state.myArray[index].id}/>
+		)
+	};
+
 	updateInputValue = (evt) => {
 		this.setState({
 			inputValue: evt.target.value.substr(0, 44)
@@ -94,27 +119,21 @@ class List extends React.Component {
 	};
 
 	render() {
-		let filteredItems = this.state.myArray.filter(
-			(arrItem) => {
-				return arrItem.text.toLowerCase().indexOf(this.state.inputValue.toLowerCase()) !== -1;
-			}
-		);
-		let maxIdItemMyArray = Math.max.apply(Math,this.state.myArray.map(function(o){return o.id;}));
+		console.log(this.filterArrItemsInputSearch);
 		return (
 			<div>
-				<h1 className="title">Simple <span className="title__sub">React todo list</span></h1>
+				<Title/>
+				{/*<Search/>*/}
+				{/*<Search filterArrItemsInputSearch={this.filterArrItemsInputSearch}/>*/}
 				<div className="search">
 					<input placeholder="Search..." type="text" value={this.state.inputValue}
 						   onChange={this.updateInputValue}/>
 				</div>
 				<Counter gelCountAllItems={this.gelCountAllItems()} getCountAllDoneItems={this.getCountAllDoneItems()}/>
 				<div className="list">
-					<Form maxIdItemMyArray={maxIdItemMyArray} addItemList={this.addItemList}/>
+					<Form getIdAddNewItem={this.getIdAddNewItem} addItemList={this.addItemList}/>
 					<ul>
-						{filteredItems.map((item, index) =>
-							<Item toggleDoneStatus={this.toggleDoneStatus} removeItemList={this.removeItemList}
-								  index={index} text={item} key={this.state.myArray[index].id}/>
-						)}
+						{this.listItems()}
 					</ul>
 				</div>
 			</div>
