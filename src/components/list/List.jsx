@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import './list.css';
 import Title from '../title/Title.jsx';
 import Item from '../list-item/Item.jsx';
-import Form from '../form/Form';
+import Form from '../form/Form.jsx';
 import Counter from '../counter/Counter.jsx';
-import Search from '../search/Search.jsx';
+import AlertNoItems from '../alert-no-items/AlertNoItems.jsx';
 
 class List extends React.Component {
 
@@ -39,15 +39,18 @@ class List extends React.Component {
 				}
 			],
 			inputValue: '',
-			filteredData: undefined,
-			noItemsList: 'Not found'
+			filteredData: undefined
 		};
 	}
 
 	toggleDoneStatus = (key) => {
 		this.setState((prevState) => {
 			let newArray = prevState.myArray.slice();
-			newArray[key].done = !newArray[key].done;
+			for (let i = 0, l = this.state.myArray.length; i < l; i++) {
+				if (this.state.myArray[i].id === key) {
+					newArray[i].done = !newArray[i].done
+				}
+			}
 			return {
 				myArray: newArray
 			};
@@ -57,18 +60,26 @@ class List extends React.Component {
 	removeItemList = (key) => {
 		this.setState((prevState) => {
 			let newArray = prevState.myArray.slice();
-			newArray.splice(key, 1);
+			for (let i = 0, l = this.state.myArray.length; i < l; i++) {
+				if (this.state.myArray[i].id === key) {
+					newArray.splice(i, 1);
+				}
+			}
 			return {
 				myArray: newArray
 			};
-		})
+		});
 	};
 
 	addItemList = (text, maxIdItemMyArray) => {
 		this.setState((prevState) => {
 			let newArray = prevState.myArray.slice();
 			maxIdItemMyArray++;
-			newArray.push({id: maxIdItemMyArray, text, done: false});
+			newArray.push({
+				id: maxIdItemMyArray <= 0 ? maxIdItemMyArray = 0 : maxIdItemMyArray,
+				text,
+				done: false
+			});
 			return {
 				myArray: newArray
 			};
@@ -89,7 +100,7 @@ class List extends React.Component {
 		return count;
 	}
 
-	getIdAddNewItem = () => {
+	getMaxIdAddNewItem = () => {
 		return Math.max.apply(Math, this.state.myArray.map(function (myArrayItem) {
 			return myArrayItem.id;
 		}));
@@ -106,7 +117,7 @@ class List extends React.Component {
 	listItems = () => {
 		return this.filterArrItemsInputSearch().map((item, index) =>
 			<Item toggleDoneStatus={this.toggleDoneStatus} removeItemList={this.removeItemList}
-				  index={index} text={item} key={this.state.myArray[index].id}/>
+				  text={item} key={this.state.myArray[index].id}/>
 		)
 	};
 
@@ -117,21 +128,19 @@ class List extends React.Component {
 	};
 
 	render() {
-		// console.log(this.state.myArray);
 		return (
 			<div>
 				<Title/>
-				{/*<Search/>*/}
-				{/*<Search filterArrItemsInputSearch={this.filterArrItemsInputSearch}/>*/}
 				<div className="search">
 					<input placeholder="Search..." type="text" value={this.state.inputValue}
 						   onChange={this.updateInputValue}/>
 				</div>
 				<Counter gelCountAllItems={this.gelCountAllItems()} getCountAllDoneItems={this.getCountAllDoneItems()}/>
 				<div className="list">
-					<Form getIdAddNewItem={this.getIdAddNewItem} addItemList={this.addItemList}/>
+					<Form getMaxIdAddNewItem={this.getMaxIdAddNewItem} addItemList={this.addItemList}/>
 					<ul>
 						{this.listItems()}
+						<AlertNoItems myArray={this.state.myArray} filterArrItemsInputSearch={this.filterArrItemsInputSearch()}/>
 					</ul>
 				</div>
 			</div>

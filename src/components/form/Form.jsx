@@ -16,21 +16,22 @@ class Form extends React.Component {
 		});
 	}
 
-	// clearInput(evt) {
-	// 	this.setState({
-	// 		inputValue: ''
-	// 	})
-	// }
+	clearInput() {
+		this.setState({
+			inputValue: ''
+		})
+	}
 
 	render() {
 		return (
 			<div className="form">
-				<input className="form__input" type="text" name="valueItem" placeholder="Add something to the list!"
-					   value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
-				<button className="form__btn" onClick={() => {this.props.addItemList(this.state.inputValue, this.props.getIdAddNewItem())}}>Add item</button>
+				<input value={this.state.inputValue} autoFocus className="form__input" type="text" name="valueItem" placeholder="Add something to the list!"
+					   onChange={evt => this.updateInputValue(evt)}/>
+				<button disabled={!this.state.inputValue} className="form__btn" onClick={() => {this.props.addItemList(this.state.inputValue, this.props.getMaxIdAddNewItem()); this.clearInput()}}>Add item</button>
 			</div>
 		);
 	}
+
 }
 
 export default Form;
