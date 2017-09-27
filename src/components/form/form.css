@@ -7,7 +7,6 @@
 	padding: 10px;
 	outline: none;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
-	border: none;
 	font-size: 18px;
 	font-family: Tahoma, Arial, sans-serif;
 	font-weight: 700;
@@ -37,8 +36,8 @@
 
 .form__btn:disabled {
 	cursor: not-allowed;
-	border: 1px solid #ef9a9a;
-	color: #ef9a9a;
+	border: 1px solid #ef5350;
+	color: #ef5350;
 	background-color: transparent;
 	transition: 0.3s linear;
 }
